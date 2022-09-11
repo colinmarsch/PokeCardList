@@ -48,6 +48,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-compose:2.5.2'
     implementation 'androidx.compose.ui:ui:1.2.1'
     implementation 'com.google.dagger:hilt-android:2.42'
+    implementation 'io.pokemontcg:pokemon-tcg-sdk-kotlin:1.2.1'
     annotationProcessor 'com.google.dagger:hilt-android-compiler:2.42'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
