@@ -8,7 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
@@ -28,7 +29,8 @@ import io.pokemontcg.model.CardSet
 import me.colinmarsch.pokecardlist.data.SeriesListViewModel
 
 @Composable
-fun SeriesListScreen(
+fun SetsListScreen(
+    parentSeries: String,
     navController: NavController,
     viewModel: SeriesListViewModel = hiltViewModel(),
 ) {
@@ -37,42 +39,49 @@ fun SeriesListScreen(
         modifier = Modifier.fillMaxSize(),
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(text = "Series")
-            SeriesList(navController, viewModel)
+            Text(text = parentSeries)
+            SetList(parentSeries, navController, viewModel)
         }
     }
 }
 
 @Composable
-fun SeriesList(
+fun SetList(
+    parentSeries: String,
     navController: NavController,
     viewModel: SeriesListViewModel = hiltViewModel(),
 ) {
-    val seriesList by remember { viewModel.seriesList }
+    val setList by remember { viewModel.allSets }
 
-    LazyColumn(
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        val seriesCount = seriesList.size
-        items(seriesCount) { index ->
-            SeriesCard(cardSet = seriesList[index], navController = navController)
+        val filteredSets = setList.filter { it.series == parentSeries }
+        val setCount = filteredSets.size
+
+        items(setCount) { index ->
+            SetCard(filteredSets[index], navController)
         }
     }
 }
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun SeriesCard(
+fun SetCard(
     cardSet: CardSet,
     navController: NavController,
 ) {
     Card(
-        onClick = { navController.navigate("sub_set_list_screen/${cardSet.series}") },
+        onClick = {
+            // TODO handle navigation here
+        },
         backgroundColor = MaterialTheme.colors.secondary,
         modifier = Modifier
             .fillMaxWidth()
-            .height(120.dp),
+            .height(80.dp),
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -80,11 +89,11 @@ fun SeriesCard(
         ) {
             AsyncImage(
                 model = cardSet.logoUrl,
-                contentDescription = cardSet.series,
+                contentDescription = cardSet.name,
                 modifier = Modifier.fillMaxHeight(0.66f),
                 contentScale = ContentScale.Fit,
             )
-            Text(text = cardSet.series)
+            Text(text = cardSet.name)
         }
     }
 }

@@ -10,6 +10,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
 import me.colinmarsch.pokecardlist.ui.SeriesListScreen
+import me.colinmarsch.pokecardlist.ui.SetsListScreen
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -25,7 +26,16 @@ class MainActivity : ComponentActivity() {
                     SeriesListScreen(navController = navController)
                 }
 
-                composable(route = "sub_set_list_screen", arguments = listOf(
+                composable(route = "sub_set_list_screen/{parentSetName}", arguments = listOf(
+                    navArgument("parentSetName") {
+                        type = NavType.StringType
+                    }
+                )) {
+                    val parentSetName = it.arguments?.get("parentSetName") as String
+                    SetsListScreen(parentSeries = parentSetName, navController = navController)
+                }
+
+                composable(route = "set_card_list_screen/{parentSetName}", arguments = listOf(
                     navArgument("parentSetName") {
                         type = NavType.StringType
                     }
@@ -34,16 +44,7 @@ class MainActivity : ComponentActivity() {
                     // TODO define the composable screen here
                 }
 
-                composable(route = "set_card_list_screen", arguments = listOf(
-                    navArgument("parentSetName") {
-                        type = NavType.StringType
-                    }
-                )) {
-                    val parentSetName = it.arguments?.get("parentSetName")
-                    // TODO define the composable screen here
-                }
-
-                composable(route = "card_detail_screen", arguments = listOf(
+                composable(route = "card_detail_screen/{cardName}", arguments = listOf(
                     navArgument("cardName") {
                         type = NavType.StringType
                     }

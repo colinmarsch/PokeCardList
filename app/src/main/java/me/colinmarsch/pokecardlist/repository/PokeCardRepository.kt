@@ -9,12 +9,12 @@ import io.pokemontcg.model.CardSet
 class PokeCardRepository {
     private val pokemon = Pokemon()
 
-    fun allSeries(): List<CardSet> {
-        return pokemon.set().all().distinctBy { it.series }
+    fun allSets(): List<CardSet> {
+        return pokemon.set().all()
     }
 
-    fun allSetsInSeries(series: String): List<CardSet> {
-        return pokemon.set().where { this.series = series }.all()
+    fun allSeries(): List<CardSet> {
+        return pokemon.set().all().distinctBy { it.series }
     }
 
     fun allCardsInSet(setName: String): List<Card> {
