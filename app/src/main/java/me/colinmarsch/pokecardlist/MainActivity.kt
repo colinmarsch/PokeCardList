@@ -1,10 +1,8 @@
 package me.colinmarsch.pokecardlist
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.compose.setContent
-import androidx.compose.runtime.remember
-import androidx.navigation.NamedNavArgument
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable

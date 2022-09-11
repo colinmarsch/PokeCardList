@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="me.colinmarsch.pokecardlist">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".PokeCardListApp"
         android:allowBackup="true"
