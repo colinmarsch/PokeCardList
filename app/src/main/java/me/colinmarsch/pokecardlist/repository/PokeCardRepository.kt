@@ -7,21 +7,21 @@ import io.pokemontcg.model.CardSet
 
 @ActivityScoped
 class PokeCardRepository {
-   private val pokemon = Pokemon()
+    private val pokemon = Pokemon()
 
-   fun allSeries() : List<String> {
-      return pokemon.set().all().map { it.series }
-   }
+    fun allSeries(): List<CardSet> {
+        return pokemon.set().all().distinctBy { it.series }
+    }
 
-   fun allSetsInSeries(series: String) : List<CardSet> {
-      return pokemon.set().where { this.series = series }.all()
-   }
+    fun allSetsInSeries(series: String): List<CardSet> {
+        return pokemon.set().where { this.series = series }.all()
+    }
 
-   fun allCardsInSet(setName: String): List<Card> {
-      return pokemon.card().where { this.set = setName }.all()
-   }
+    fun allCardsInSet(setName: String): List<Card> {
+        return pokemon.card().where { this.set = setName }.all()
+    }
 
-   fun cardById(cardId: String) : Card {
-      return pokemon.card().where { this.id = cardId }.all()[0]
-   }
+    fun cardById(cardId: String): Card {
+        return pokemon.card().where { this.id = cardId }.all()[0]
+    }
 }

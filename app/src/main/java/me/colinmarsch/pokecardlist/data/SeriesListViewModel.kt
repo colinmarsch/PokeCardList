@@ -1,0 +1,35 @@
+package me.colinmarsch.pokecardlist.data
+
+import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import io.pokemontcg.model.CardSet
+import javax.inject.Inject
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import me.colinmarsch.pokecardlist.repository.PokeCardRepository
+
+@HiltViewModel
+class SeriesListViewModel @Inject constructor(
+    private val repository: PokeCardRepository,
+) : ViewModel() {
+
+    var seriesList = mutableStateOf<List<CardSet>>(emptyList())
+    var isLoading = mutableStateOf(false)
+
+    init {
+        loadSeriesList()
+    }
+
+    fun loadSeriesList() {
+        viewModelScope.launch {
+            isLoading.value = true
+            CoroutineScope(Dispatchers.IO).launch {
+                seriesList.value = repository.allSeries()
+                isLoading.value = false
+            }
+        }
+    }
+}
