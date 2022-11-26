@@ -17,8 +17,8 @@ class PokeCardRepository {
         return pokemon.set().all().distinctBy { it.series }
     }
 
-    fun allCardsInSet(setName: String): List<Card> {
-        return pokemon.card().where { this.set = setName }.all()
+    fun allCards(): List<Card> {
+        return pokemon.card().all()
     }
 
     fun cardById(cardId: String): Card {

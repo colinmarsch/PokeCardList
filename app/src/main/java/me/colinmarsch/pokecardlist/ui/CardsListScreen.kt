@@ -25,57 +25,59 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import io.pokemontcg.model.CardSet
-import me.colinmarsch.pokecardlist.data.SeriesListViewModel
+import io.pokemontcg.model.Card
+import me.colinmarsch.pokecardlist.data.CardListViewModel
 
 @Composable
-fun SetsListScreen(
-    parentSeries: String,
+fun CardsListScreen(
+    parentSet: String,
     navController: NavController,
-    viewModel: SeriesListViewModel = hiltViewModel(),
+    viewModel: CardListViewModel = hiltViewModel(),
 ) {
     Surface(
         color = MaterialTheme.colors.background,
         modifier = Modifier.fillMaxSize(),
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(text = parentSeries)
-            SetList(parentSeries, navController, viewModel)
+            Text(text = parentSet)
+            CardList(parentSet, navController, viewModel)
         }
     }
 }
 
 @Composable
-fun SetList(
-    parentSeries: String,
+fun CardList(
+    parentSet: String,
     navController: NavController,
-    viewModel: SeriesListViewModel = hiltViewModel(),
+    viewModel: CardListViewModel = hiltViewModel(),
 ) {
-    val setList by remember { viewModel.allSets }
+    val cardList by remember { viewModel.allCards }
 
     LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
+        columns = GridCells.Fixed(3),
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        val filteredSets = setList.filter { it.series == parentSeries }
-        val setCount = filteredSets.size
+        val filteredCards = cardList.filter { it.set == parentSet }
+        val setCount = filteredCards.size
 
         items(setCount) { index ->
-            SetCard(filteredSets[index], navController)
+            CardCard(filteredCards[index], navController)
         }
     }
 }
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun SetCard(
-    cardSet: CardSet,
+fun CardCard(
+    card: Card,
     navController: NavController,
 ) {
     Card(
-        onClick = { navController.navigate("set_card_list_screen/${cardSet.name}") },
+        onClick = {
+            // TODO handle navigation here
+        },
         backgroundColor = MaterialTheme.colors.secondary,
         modifier = Modifier
             .fillMaxWidth()
@@ -86,12 +88,12 @@ fun SetCard(
             modifier = Modifier.padding(16.dp),
         ) {
             AsyncImage(
-                model = cardSet.logoUrl,
-                contentDescription = cardSet.name,
+                model = card.imageUrl,
+                contentDescription = card.name,
                 modifier = Modifier.fillMaxHeight(0.66f),
                 contentScale = ContentScale.Fit,
             )
-            Text(text = cardSet.name)
+            Text(text = card.name)
         }
     }
 }

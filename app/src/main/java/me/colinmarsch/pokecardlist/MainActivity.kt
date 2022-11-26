@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
+import me.colinmarsch.pokecardlist.ui.CardsListScreen
 import me.colinmarsch.pokecardlist.ui.SeriesListScreen
 import me.colinmarsch.pokecardlist.ui.SetsListScreen
 
@@ -40,8 +41,8 @@ class MainActivity : ComponentActivity() {
                         type = NavType.StringType
                     }
                 )) {
-                    val parentSetName = it.arguments?.get("parentSetName")
-                    // TODO define the composable screen here
+                    val parentSetName = it.arguments?.get("parentSetName") as String
+                    CardsListScreen(parentSet = parentSetName, navController = navController)
                 }
 
                 composable(route = "card_detail_screen/{cardName}", arguments = listOf(
