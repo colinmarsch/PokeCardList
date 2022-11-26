@@ -79,7 +79,7 @@ fun SeriesCard(
             modifier = Modifier.padding(16.dp),
         ) {
             AsyncImage(
-                model = cardSet.logoUrl,
+                model = cardSet.images.logo,
                 contentDescription = cardSet.series,
                 modifier = Modifier.fillMaxHeight(0.66f),
                 contentScale = ContentScale.Fit,

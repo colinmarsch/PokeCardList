@@ -14,7 +14,7 @@ android {
         targetSdk 32
         versionCode 1
         versionName "1.0"
-
+        buildConfigField "String", "API_KEY", "\"${System.env.POKE_API_KEY}\""
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -42,6 +42,7 @@ android {
 }
 
 dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.aar', '*.jar'])
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.6.1'
@@ -50,11 +51,17 @@ dependencies {
     implementation 'androidx.compose.ui:ui:1.2.1'
     implementation "androidx.compose.material:material:1.2.1"
     implementation "androidx.compose.ui:ui-tooling:1.2.1"
-    implementation 'io.pokemontcg:pokemon-tcg-sdk-kotlin:1.2.1'
     implementation 'io.coil-kt:coil:2.2.1'
     implementation 'io.coil-kt:coil-compose:2.2.1'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
+
+    // Transitive dependencies to support include the PokemonTCG Kotlin SDK via jar
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-core:1.2.2"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2"
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0"
+    implementation "com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2"
 
     implementation 'com.google.dagger:hilt-android:2.42'
     kapt'com.google.dagger:hilt-android-compiler:2.42'

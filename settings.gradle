@@ -10,7 +10,6 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        jcenter() // TODO remove when the Pokemon TCG SDK is published off of jcenter
     }
 }
 rootProject.name = "PokeCardList"

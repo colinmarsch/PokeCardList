@@ -86,7 +86,7 @@ fun SetCard(
             modifier = Modifier.padding(16.dp),
         ) {
             AsyncImage(
-                model = cardSet.logoUrl,
+                model = cardSet.images.logo,
                 contentDescription = cardSet.name,
                 modifier = Modifier.fillMaxHeight(0.66f),
                 contentScale = ContentScale.Fit,

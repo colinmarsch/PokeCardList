@@ -4,24 +4,22 @@ import dagger.hilt.android.scopes.ActivityScoped
 import io.pokemontcg.Pokemon
 import io.pokemontcg.model.Card
 import io.pokemontcg.model.CardSet
+import me.colinmarsch.pokecardlist.BuildConfig
 
 @ActivityScoped
 class PokeCardRepository {
-    private val pokemon = Pokemon()
 
-    fun allSets(): List<CardSet> {
+    private val pokemon = Pokemon(BuildConfig.API_KEY)
+
+    suspend fun allSets(): List<CardSet> {
         return pokemon.set().all()
     }
 
-    fun allSeries(): List<CardSet> {
+    suspend fun allSeries(): List<CardSet> {
         return pokemon.set().all().distinctBy { it.series }
     }
 
-    fun allCards(): List<Card> {
+    suspend fun allCards(): List<Card> {
         return pokemon.card().all()
-    }
-
-    fun cardById(cardId: String): Card {
-        return pokemon.card().where { this.id = cardId }.all()[0]
     }
 }

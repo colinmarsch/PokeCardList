@@ -59,7 +59,7 @@ fun CardList(
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        val filteredCards = cardList.filter { it.set == parentSet }
+        val filteredCards = cardList.filter { it.set.name == parentSet }
         val setCount = filteredCards.size
 
         items(setCount) { index ->
@@ -88,7 +88,7 @@ fun CardCard(
             modifier = Modifier.padding(16.dp),
         ) {
             AsyncImage(
-                model = card.imageUrl,
+                model = card.images.small,
                 contentDescription = card.name,
                 modifier = Modifier.fillMaxHeight(0.66f),
                 contentScale = ContentScale.Fit,
