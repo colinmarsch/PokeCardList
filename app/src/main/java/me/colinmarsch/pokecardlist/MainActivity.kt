@@ -36,13 +36,13 @@ class MainActivity : ComponentActivity() {
                     SetsListScreen(parentSeries = parentSetName, navController = navController)
                 }
 
-                composable(route = "set_card_list_screen/{parentSetName}", arguments = listOf(
-                    navArgument("parentSetName") {
+                composable(route = "set_card_list_screen/{parentSetId}", arguments = listOf(
+                    navArgument("parentSetId") {
                         type = NavType.StringType
                     }
                 )) {
-                    val parentSetName = it.arguments?.get("parentSetName") as String
-                    CardsListScreen(parentSet = parentSetName, navController = navController)
+                    val parentSetId = it.arguments?.get("parentSetId") as String
+                    CardsListScreen(parentSet = parentSetId, navController = navController)
                 }
 
                 composable(route = "card_detail_screen/{cardName}", arguments = listOf(

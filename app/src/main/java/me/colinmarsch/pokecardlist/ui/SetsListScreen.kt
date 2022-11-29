@@ -75,7 +75,7 @@ fun SetCard(
     navController: NavController,
 ) {
     Card(
-        onClick = { navController.navigate("set_card_list_screen/${cardSet.name}") },
+        onClick = { navController.navigate("set_card_list_screen/${cardSet.id}") },
         backgroundColor = MaterialTheme.colors.secondary,
         modifier = Modifier
             .fillMaxWidth()

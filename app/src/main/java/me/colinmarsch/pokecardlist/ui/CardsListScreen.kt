@@ -59,7 +59,7 @@ fun CardList(
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        val filteredCards = cardList.filter { it.set.name == parentSet }
+        val filteredCards = cardList.filter { it.set.id == parentSet }
         val setCount = filteredCards.size
 
         items(setCount) { index ->
