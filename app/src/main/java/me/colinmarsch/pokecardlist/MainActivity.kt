@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
                         type = NavType.StringType
                     }
                 )) {
-                    val parentSetName = it.arguments?.get("parentSetName") as String
+                    val parentSetName = it.arguments?.getString("parentSetName")!!
                     SetsListScreen(parentSeries = parentSetName, navController = navController)
                 }
 
@@ -41,7 +41,7 @@ class MainActivity : ComponentActivity() {
                         type = NavType.StringType
                     }
                 )) {
-                    val parentSetId = it.arguments?.get("parentSetId") as String
+                    val parentSetId = it.arguments?.getString("parentSetId")!!
                     CardsListScreen(parentSet = parentSetId, navController = navController)
                 }
 
@@ -50,7 +50,7 @@ class MainActivity : ComponentActivity() {
                         type = NavType.StringType
                     }
                 )) {
-                    val cardName = it.arguments?.get("cardName")
+                    val cardName = it.arguments?.getString("cardName")
                     // TODO define the composable screen here
                 }
             }
