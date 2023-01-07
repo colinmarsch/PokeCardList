@@ -4,11 +4,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.pokemontcg.model.Card
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import me.colinmarsch.pokecardlist.db.Card
 import me.colinmarsch.pokecardlist.repository.PokeCardRepository
 
 @HiltViewModel

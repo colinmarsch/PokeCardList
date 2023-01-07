@@ -25,8 +25,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import io.pokemontcg.model.Card
 import me.colinmarsch.pokecardlist.data.CardListViewModel
+import me.colinmarsch.pokecardlist.db.Card
 
 @Composable
 fun CardsListScreen(
@@ -59,7 +59,7 @@ fun CardList(
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        val filteredCards = cardList.filter { it.set.id == parentSet }
+        val filteredCards = cardList.filter { it.parentSetId == parentSet }
         val setCount = filteredCards.size
 
         items(setCount) { index ->
@@ -88,12 +88,12 @@ fun CardCard(
             modifier = Modifier.padding(16.dp),
         ) {
             AsyncImage(
-                model = card.images.small,
+                model = card.smallImageUrl,
                 contentDescription = card.name,
                 modifier = Modifier.fillMaxHeight(0.66f),
                 contentScale = ContentScale.Fit,
             )
-            Text(text = card.name)
+            Text(text = card.name ?: "")
         }
     }
 }
