@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.Card
@@ -54,7 +55,7 @@ fun CardList(
     val cardList by remember { viewModel.allCards }
 
     LazyVerticalGrid(
-        columns = GridCells.Fixed(3),
+        columns = GridCells.Fixed(2),
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
@@ -81,7 +82,7 @@ fun CardCard(
         backgroundColor = MaterialTheme.colors.secondary,
         modifier = Modifier
             .fillMaxWidth()
-            .height(100.dp),
+            .wrapContentHeight(),
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -93,7 +94,7 @@ fun CardCard(
                 modifier = Modifier.fillMaxHeight(0.66f),
                 contentScale = ContentScale.Fit,
             )
-            Text(text = card.name ?: "")
+            Text(text = card.name ?: "", )
         }
     }
 }
