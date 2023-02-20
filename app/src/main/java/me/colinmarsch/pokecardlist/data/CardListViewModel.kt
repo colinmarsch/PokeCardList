@@ -1,5 +1,6 @@
 package me.colinmarsch.pokecardlist.data
 
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,17 +16,16 @@ import me.colinmarsch.pokecardlist.repository.PokeCardRepository
 class CardListViewModel @Inject constructor(
     private val repository: PokeCardRepository,
 ) : ViewModel() {
-    var allCards = mutableStateOf<List<Card>>(emptyList())
+    var cards = mutableStateOf<MutableMap<String, MutableState<List<Card>>>>(mutableMapOf())
 
-    init {
-        loadCards()
-    }
-
-    fun loadCards() {
+    fun cardsInSet(setId: String): MutableState<List<Card>> {
+        val setState = mutableStateOf<List<Card>>(emptyList())
         viewModelScope.launch {
             CoroutineScope(Dispatchers.IO).launch {
-                allCards.value = repository.allCards()
+                setState.value = repository.allCardsInSet(setId)
+                cards.value[setId] = setState
             }
         }
+        return cards.value[setId] ?: setState
     }
 }

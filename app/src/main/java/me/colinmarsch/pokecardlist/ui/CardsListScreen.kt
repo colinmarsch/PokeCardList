@@ -52,7 +52,7 @@ fun CardList(
     navController: NavController,
     viewModel: CardListViewModel = hiltViewModel(),
 ) {
-    val cardList by remember { viewModel.allCards }
+    val cardList by remember { viewModel.cardsInSet(parentSet) }
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
