@@ -6,6 +6,7 @@ plugins {
 }
 
 android {
+    namespace 'me.colinmarsch.pokecardlist'
     compileSdk 33
 
     defaultConfig {
