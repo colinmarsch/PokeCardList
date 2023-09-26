@@ -17,25 +17,15 @@ class SeriesListViewModel @Inject constructor(
 ) : ViewModel() {
 
     var seriesList = mutableStateOf<List<CardSet>>(emptyList())
-    var allSets = mutableStateOf<List<CardSet>>(emptyList())
 
     init {
         loadSeriesList()
-        loadSets()
     }
 
     fun loadSeriesList() {
         viewModelScope.launch {
             CoroutineScope(Dispatchers.IO).launch {
                 seriesList.value = repository.allSeries()
-            }
-        }
-    }
-
-    fun loadSets() {
-        viewModelScope.launch {
-            CoroutineScope(Dispatchers.IO).launch {
-                allSets.value = repository.allSets()
             }
         }
     }

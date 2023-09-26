@@ -27,43 +27,42 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import io.pokemontcg.model.CardSet
 import me.colinmarsch.pokecardlist.data.SeriesListViewModel
+import me.colinmarsch.pokecardlist.data.SetListViewModel
 
 @Composable
 fun SetsListScreen(
     parentSeries: String,
     navController: NavController,
-    viewModel: SeriesListViewModel = hiltViewModel(),
+    viewModel: SetListViewModel = hiltViewModel(),
 ) {
+    val setList by remember { viewModel.loadSets(parentSeries) }
+
     Surface(
         color = MaterialTheme.colors.background,
         modifier = Modifier.fillMaxSize(),
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(text = parentSeries)
-            SetList(parentSeries, navController, viewModel)
+            SetList(navController, setList)
         }
     }
 }
 
 @Composable
 fun SetList(
-    parentSeries: String,
     navController: NavController,
-    viewModel: SeriesListViewModel = hiltViewModel(),
+    setList: List<CardSet>,
 ) {
-    val setList by remember { viewModel.allSets }
-
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        val filteredSets = setList.filter { it.series == parentSeries }
-        val setCount = filteredSets.size
+        val setCount = setList.size
 
         items(setCount) { index ->
-            SetCard(filteredSets[index], navController)
+            SetCard(setList[index], navController)
         }
     }
 }

@@ -18,11 +18,13 @@ class PokeCardRepository @Inject constructor(
   private val pokemon = Pokemon(BuildConfig.API_KEY)
   private val cardDao = db.cardDao()
 
-  suspend fun allSets(): List<CardSet> {
-    return pokemon.set().all()
+  suspend fun  allSetsInSeries(seriesId: String): List<CardSet> {
+    // TODO: store this in the db
+    return pokemon.set().where(QueryBuilder(query = "series:\"$seriesId\"")).all()
   }
 
   suspend fun allSeries(): List<CardSet> {
+    // TODO: store this in the db
     return pokemon.set().all().distinctBy { it.series }
   }
 
